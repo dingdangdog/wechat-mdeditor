@@ -1,43 +1,47 @@
 let app = new Vue({
-  el: '#app',
+  el: "#app",
   data: function () {
     let d = {
-      aboutOutput: '',
-      output: '',
-      source: '',
+      aboutOutput: "",
+      output: "",
+      source: "",
       editorThemes: [
-        { label: 'base16-light', value: 'base16-light' },
-        { label: 'duotone-light', value: 'duotone-light' },
-        { label: 'monokai', value: 'monokai' }
+        { label: "base16-light", value: "base16-light" },
+        { label: "duotone-light", value: "duotone-light" },
+        { label: "monokai", value: "monokai" },
       ],
       editor: null,
       builtinFonts: [
         {
-          label: '无衬线',
-          value: "-apple-system-font,BlinkMacSystemFont, Helvetica Neue, PingFang SC, Hiragino Sans GB , Microsoft YaHei UI , Microsoft YaHei ,Arial,sans-serif"
+          label: "无衬线",
+          value:
+            "-apple-system-font,BlinkMacSystemFont, Helvetica Neue, PingFang SC, Hiragino Sans GB , Microsoft YaHei UI , Microsoft YaHei ,Arial,sans-serif",
         },
         {
-          label: '衬线',
-          value: "Optima-Regular, Optima, PingFangSC-light, PingFangTC-light, 'PingFang SC', Cambria, Cochin, Georgia, Times, 'Times New Roman', serif"
-        }
+          label: "衬线",
+          value:
+            "Optima-Regular, Optima, PingFangSC-light, PingFangTC-light, 'PingFang SC', Cambria, Cochin, Georgia, Times, 'Times New Roman', serif",
+        },
       ],
       sizeOption: [
-        { label: '14px', value: '14px', desc: '稍小' },
-        { label: '15px', value: '15px', desc: '默认' },
-        { label: '16px', value: '16px', desc: '稍大' },
-        { label: '17px', value: '17px', desc: '很大' },
+        { label: "14px", value: "14px", desc: "稍小" },
+        { label: "15px", value: "15px", desc: "默认" },
+        { label: "16px", value: "16px", desc: "稍大" },
+        { label: "17px", value: "17px", desc: "很大" },
       ],
       themeOption: [
-        { label: 'default', value: 'default', author: '张凯强' },
-        { label: 'lyric', value: 'lyric', author: 'Lyric' },
-        { label: 'lupeng', value: 'lupeng', author: '鲁鹏' }
+        { label: "oldmoon", value: "oldmoon", author: "月上老狗" },
+        { label: "zkqiang", value: "zkqiang", author: "张凯强" },
+        { label: "lyric", value: "lyric", author: "Lyric" },
+        { label: "lupeng", value: "lupeng", author: "鲁鹏" },
       ],
       styleThemes: {
-        default: defaultTheme,
+        oldmoon: oldmoonTheme,
+        zkqiang: zkqiangTheme,
         lyric: lyricTheme,
-        lupeng: lupengTheme
+        lupeng: lupengTheme,
       },
-      aboutDialogVisible: false
+      aboutDialogVisible: false,
     };
     d.currentEditorTheme = d.editorThemes[0].value;
     d.currentFont = d.builtinFonts[0].value;
@@ -47,35 +51,32 @@ let app = new Vue({
   },
   mounted() {
     let self = this;
-    this.editor = CodeMirror.fromTextArea(
-      document.getElementById('editor'),
-      {
-        lineNumbers: false,
-        lineWrapping: true,
-        styleActiveLine: true,
-        theme: this.currentEditorTheme,
-        mode: 'text/x-markdown',
-      }
-    );
+    this.editor = CodeMirror.fromTextArea(document.getElementById("editor"), {
+      lineNumbers: false,
+      lineWrapping: true,
+      styleActiveLine: true,
+      theme: this.currentEditorTheme,
+      mode: "text/x-markdown",
+    });
     this.editor.on("change", function (cm, change) {
       self.refresh();
       self.saveEditorContent();
     });
     this.wxRenderer = new WxRenderer({
-      theme: this.styleThemes.default,
+      theme: this.styleThemes.oldmoon,
       fonts: this.currentFont,
-      size: this.currentSize
+      size: this.currentSize,
     });
     // 如果有编辑内容被保存则读取，否则加载默认文档
     if (localStorage.getItem("__editor_content")) {
       this.editor.setValue(localStorage.getItem("__editor_content"));
     } else {
       axios({
-        method: 'get',
-        url: './assets/default-content.md',
+        method: "get",
+        url: "./assets/default-content.md",
       }).then(function (resp) {
-        self.editor.setValue(resp.data)
-      })
+        self.editor.setValue(resp.data);
+      });
     }
   },
   methods: {
@@ -89,45 +90,45 @@ let app = new Vue({
         // 附加的一些 style
         output += this.wxRenderer.buildAddition();
       }
-      return output
+      return output;
     },
     editorThemeChanged: function (editorTheme) {
-      this.editor.setOption('theme', editorTheme)
+      this.editor.setOption("theme", editorTheme);
     },
     fontChanged: function (fonts) {
       this.wxRenderer.setOptions({
-        fonts: fonts
+        fonts: fonts,
       });
-      this.refresh()
+      this.refresh();
     },
     sizeChanged: function (size) {
       this.wxRenderer.setOptions({
-        size: size
+        size: size,
       });
-      this.refresh()
+      this.refresh();
     },
     themeChanged: function (themeName) {
       let themeObject = this.styleThemes[themeName];
       this.wxRenderer.setOptions({
-        theme: themeObject
+        theme: themeObject,
       });
-      this.refresh()
+      this.refresh();
     },
     // 刷新右侧预览
     refresh: function () {
-      this.output = this.renderWeChat(this.editor.getValue(0))
+      this.output = this.renderWeChat(this.editor.getValue(0));
     },
     // 将左侧编辑器内容保存到 LocalStorage
     saveEditorContent: function () {
       let content = this.editor.getValue(0);
-      if (content){
+      if (content) {
         localStorage.setItem("__editor_content", content);
       } else {
         localStorage.removeItem("__editor_content");
       }
     },
     copy: function () {
-      let clipboardDiv = document.getElementById('output');
+      let clipboardDiv = document.getElementById("output");
       clipboardDiv.focus();
       window.getSelection().removeAllRanges();
       let range = document.createRange();
@@ -136,28 +137,31 @@ let app = new Vue({
       window.getSelection().addRange(range);
 
       try {
-        if (document.execCommand('copy')) {
+        if (document.execCommand("copy")) {
           this.$message({
-            message: '已复制到剪贴板', type: 'success'
-          })
+            message: "已复制到剪贴板",
+            type: "success",
+          });
         } else {
           this.$message({
-            message: '未能复制到剪贴板，请全选后右键复制', type: 'warning'
-          })
+            message: "未能复制到剪贴板，请全选后右键复制",
+            type: "warning",
+          });
         }
       } catch (err) {
         this.$message({
-          message: '未能复制到剪贴板，请全选后右键复制', type: 'warning'
-        })
+          message: "未能复制到剪贴板，请全选后右键复制",
+          type: "warning",
+        });
       }
     },
     openWindow: function (url) {
       window.open(url);
-    }
+    },
   },
   updated: function () {
     this.$nextTick(function () {
-      prettyPrint()
-    })
-  }
+      prettyPrint();
+    });
+  },
 });

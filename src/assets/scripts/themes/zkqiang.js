@@ -1,4 +1,4 @@
-let defaultTheme = {
+let zkqiangTheme = {
   BASE: {
     'text-align': 'left',
     'color': '#3f3f3f',
