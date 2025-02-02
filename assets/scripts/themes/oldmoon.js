@@ -10,6 +10,7 @@ let oldmoonTheme = {
   // block element
   block: {
     h1: {
+      color: "#0056b3",
       "font-size": "1.5em",
       "text-align": "center",
       "font-weight": "bold",
@@ -19,6 +20,7 @@ let oldmoonTheme = {
       "border-bottom": "3px solid #0056b3",
     },
     h2: {
+      color: "#0056b3",
       "font-size": "1.3em",
       "font-weight": "bold",
       display: "table",
@@ -27,6 +29,7 @@ let oldmoonTheme = {
       "border-bottom": "2px solid #0056b3",
     },
     h3: {
+      color: "#0056b3",
       "font-weight": "bold",
       "font-size": "1.1em",
       margin: "2em 8px 0.75em 0",
@@ -35,6 +38,7 @@ let oldmoonTheme = {
       "border-bottom": "1px solid #0056b3",
     },
     h4: {
+      color: "#0056b3",
       "font-weight": "bold",
       "font-size": "1em",
       margin: "2em 8px 0.5em 8px",
