@@ -1,7 +1,7 @@
 let oldmoonTheme = {
   BASE: {
     "text-align": "left",
-    color: "#595959",
+    color: "#0056b3",
     "line-height": "1.75",
   },
   BASE_BLOCK: {
