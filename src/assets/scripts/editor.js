@@ -24,10 +24,11 @@ let app = new Vue({
         },
       ],
       sizeOption: [
-        { label: "14px", value: "14px", desc: "稍小" },
-        { label: "15px", value: "15px", desc: "默认" },
-        { label: "16px", value: "16px", desc: "稍大" },
-        { label: "17px", value: "17px", desc: "很大" },
+        { label: "14px", value: "14px", desc: "很小" },
+        { label: "15px", value: "15px", desc: "稍小" },
+        { label: "16px", value: "16px", desc: "正常" },
+        { label: "17px", value: "17px", desc: "稍大" },
+        { label: "18px", value: "18px", desc: "很大" },
       ],
       themeOption: [
         { label: "oldmoon", value: "oldmoon", author: "月上老狗" },
@@ -45,7 +46,7 @@ let app = new Vue({
     };
     d.currentEditorTheme = d.editorThemes[0].value;
     d.currentFont = d.builtinFonts[0].value;
-    d.currentSize = d.sizeOption[1].value;
+    d.currentSize = d.sizeOption[2].value;
     d.currentTheme = d.themeOption[0].value;
     return d;
   },
