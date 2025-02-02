@@ -14,7 +14,7 @@ let oldmoonTheme = {
       "text-align": "center",
       "font-weight": "bold",
       display: "table",
-      margin: "2em auto 1em auto",
+      margin: "3em auto 1.5em auto",
       padding: "0 1em",
       "border-bottom": "3px solid #0056b3",
     },
