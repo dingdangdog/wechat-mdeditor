@@ -32,12 +32,14 @@ let app = new Vue({
       ],
       themeOption: [
         { label: "oldmoon", value: "oldmoon", author: "月上老狗" },
+        { label: "Florea", value: "florea", author: "Florea" },
         { label: "zkqiang", value: "zkqiang", author: "张凯强" },
         { label: "lyric", value: "lyric", author: "Lyric" },
         { label: "lupeng", value: "lupeng", author: "鲁鹏" },
       ],
       styleThemes: {
         oldmoon: oldmoonTheme,
+        florea: floreaTheme,
         zkqiang: zkqiangTheme,
         lyric: lyricTheme,
         lupeng: lupengTheme,
